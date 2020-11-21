@@ -1,26 +1,31 @@
-from math import ceil, floor
+from math import floor
 
 
-def get_min_size_of_square(n, w, h):
-    left = 1
-    right = max(w, h) * n
+def find_min_size(n, w, h):
+
+    index = 1
+    a = max(h, w) * n
+
     while True:
-        if right <= left:
-            ans = right
+
+        if a <= index:
+            result = a
             break
-        middle = floor((right - left) / 2 + left)
-        count_in_row = floor(middle / w)
-        count_in_column = floor(middle / h)
-        count_of_rectangles = count_in_row * count_in_column
-        if count_of_rectangles < n:
-            left = middle + 1
-        elif count_of_rectangles > n:
-            right = middle
+        board = floor((a - index) / 2 + index)
+        weight = floor(board / w)
+        height = floor(board / h)
+        rectangles = height * weight
+        if rectangles < n:
+            index = board + 1
+        elif rectangles > n:
+            a = board
         else:
-            ans = middle
+            result = board
             break
-    return ans
+    return result
+
+
 
 
 if __name__ == '__main__':
-    print(get_min_size_of_square(10, 10056760000, 6788699999))
+    print(find_min_size(10, 3, 2))
